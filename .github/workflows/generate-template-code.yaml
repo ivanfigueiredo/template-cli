@@ -46,8 +46,6 @@ jobs:
           gh auth login --with-token
 
       - name: Create new repository on GitHub
-        env:
-          GITHUB_TOKEN: ${{ inputs.PAT_TOKEN }}
         run: |
           gh repo create bff-${{inputs.SERVICE_NAME}}-service --public --confirm
 
