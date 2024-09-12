@@ -51,7 +51,7 @@ jobs:
 
       - name: First commit
         run: |
-          cd bff-${{inputs.SERVICE_NAME}}
+          cd bff-${{inputs.SERVICE_NAME}}-service
           git init
           git remote add origin https://github.com/ivanfigueiredo/bff-${{inputs.SERVICE_NAME}}-service
           git add .
