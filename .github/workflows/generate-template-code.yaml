@@ -7,10 +7,6 @@ on:
         required: true
         type: string
         description: "service-name"
-      PAT_TOKEN:
-        required: true
-        type: string
-        description: "Personal token"
 
 permissions:
   contents: write
@@ -43,9 +39,11 @@ jobs:
 
       - name: Authenticating to the GitHub CLI
         run: |
-          echo "${{ inputs.PAT_TOKEN }}" | gh auth login --with-token
+          gh auth login --with-token
 
       - name: Create new repository on GitHub
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh repo create bff-${{inputs.SERVICE_NAME}}-service --public --confirm
 
@@ -61,5 +59,5 @@ jobs:
           git add .
           git commit -m "Initial project structure"
           git branch -M master
-          git remote add origin https://${{inputs.PAT_TOKEN}}@github.com/ivanfigueiredo/bff-${{inputs.SERVICE_NAME}}-service.git
+          git remote add origin https://github.com/ivanfigueiredo/bff-${{inputs.SERVICE_NAME}}-service.git
           git push -u origin master
