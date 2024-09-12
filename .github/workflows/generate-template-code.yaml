@@ -1,0 +1,55 @@
+name: Generate Template Code
+
+on:
+  workflow_dispatch:
+    inputs:
+      SERVICE_NAME:
+        required: true
+        type: string
+        description: "service-name"
+
+permissions:
+  contents: write
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Java and Maven
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: 3.9.6
+
+      - name: Run CLI to generate the code
+        run: |
+          mvn clean package
+          java -jar target/template-cli-1.0-SNAPSHOT.jar -s ${{inputs.SERVICE_NAME}}
+
+      - name: Authenticating to the GitHub CLI
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+      - name: Create new repository on GitHub
+        run: |
+          gh repo create bff-${{inputs.SERVICE_NAME}}-service --public --confirm
+
+      - name: First commit
+        run: |
+          cd bff-${{inputs.SERVICE_NAME}}
+          git init
+          git remote add origin https://github.com/ivanfigueiredo/bff-${{inputs.SERVICE_NAME}}-service.git
+          git add .
+          git commit -m "Initial project structure"
+          git push -u origin main
