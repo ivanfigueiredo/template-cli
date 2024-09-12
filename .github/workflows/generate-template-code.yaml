@@ -58,10 +58,11 @@ jobs:
           
           git config user.name "Ivan Figueiredo"
           git config user.email "ivan.figueiredo99@gmail.com"
+          git config --global http.https://github.com/ivanfigueiredo.extraheader "Authorization: Basic {{inputs.PAT_TOKEN}}"
           git config --global init.defaultBranch master
           
           git add .
           git commit -m "Initial project structure"
           git branch -M master
-          git remote add origin https://${{inputs.PAT_TOKEN}}@github.com/ivanfigueiredo/bff-${{inputs.SERVICE_NAME}}-service.git
+          git remote add origin https://github.com/ivanfigueiredo/bff-${{inputs.SERVICE_NAME}}-service.git
           git push -u origin master
