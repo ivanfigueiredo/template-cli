@@ -15,6 +15,5 @@ public class TemplateCliStart {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //System.setProperty(AbstractEnvironment.DEFAULT_PROFILES_PROPERTY_NAME, "local");
     }
 }
