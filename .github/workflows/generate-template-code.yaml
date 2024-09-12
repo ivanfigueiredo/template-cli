@@ -1,0 +1,11 @@
+name: Generate Template Code
+
+on:
+  workflow_dispatch:
+    inputs:
+      SERVICE_NAME:
+        required: true
+        type: string
+
+permissions:
+  contents: write
