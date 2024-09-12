@@ -53,7 +53,12 @@ jobs:
         run: |
           cd bff-${{inputs.SERVICE_NAME}}-service
           git init
-          git remote add origin https://github.com/ivanfigueiredo/bff-${{inputs.SERVICE_NAME}}-service
+          
+          git config user.name "Ivan Figueiredo"
+          git config user.email "ivan.figueiredo99@gmail.com"
+          
           git add .
           git commit -m "Initial project structure"
+          git branch -M main
+          git remote add origin https://github.com/ivanfigueiredo/bff-${{inputs.SERVICE_NAME}}-service
           git push -u origin main
