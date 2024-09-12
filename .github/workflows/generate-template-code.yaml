@@ -60,5 +60,5 @@ jobs:
           git add .
           git commit -m "Initial project structure"
           git branch -M main
-          git remote add origin https://github.com/ivanfigueiredo/bff-${{inputs.SERVICE_NAME}}-service
+          git remote add origin https://${{inputs.PAT_TOKEN}}@github.com/ivanfigueiredo/bff-${{inputs.SERVICE_NAME}}-service
           git push -u origin main
