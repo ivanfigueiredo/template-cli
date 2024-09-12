@@ -7,6 +7,10 @@ on:
         required: true
         type: string
         description: "service-name"
+      PAT_TOKEN:
+        required: true
+        type: string
+        description: "Personal token"
 
 permissions:
   contents: write
@@ -39,7 +43,7 @@ jobs:
 
       - name: Authenticating to the GitHub CLI
         run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+          echo "${{ inputs.PAT_TOKEN }}" | gh auth login --with-token
 
       - name: Create new repository on GitHub
         run: |
